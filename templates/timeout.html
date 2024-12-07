@@ -1,224 +1,291 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ParkWatch: Time Out</title>
 
     <!-- Bootstrap 5 CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <style>
-        body {
-            background-color: #eef2f7;
-            font-family: 'Roboto', sans-serif;
-        }
+      body {
+        background-color: #eef2f7;
+        font-family: "Roboto", sans-serif;
+      }
 
-        /* Header Styling */
-        .header {
-            background-color: #007bff;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-        }
+      /* Header Styling */
+      .header {
+        background-color: #007bff;
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+      }
 
-        .container {
-            margin-top: 20px;
-        }
+      .container {
+        margin-top: 20px;
+      }
 
-        .card {
-            border: none;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        }
+      .card {
+        border: none;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      }
 
-        /* Live Video Feed Card Header */
-        .card-header-live {
-            background-color: #007bff;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-align: center;
-            padding: 15px;
-        }
+      /* Live Video Feed Card Header */
+      .card-header-live {
+        background-color: #007bff;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-align: center;
+        padding: 15px;
+      }
 
-        /* Detected Vehicles Card Header */
-        .card-header-detected {
-            background-color: #007bff;
-            color: white;
-            font-size: 1.1rem;
-            font-weight: bold;
-            text-align: center;
-            padding: 15px;
-        }
+      /* Detected Vehicles Card Header */
+      .card-header-detected {
+        background-color: #007bff;
+        color: white;
+        font-size: 1.1rem;
+        font-weight: bold;
+        text-align: center;
+        padding: 15px;
+      }
 
-        .card-body {
-            padding: 20px;
-            background: white;
-        }
+      .card-body {
+        padding: 20px;
+        background: white;
+      }
 
+      .video-feed {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+
+      /* Vehicle List Styling */
+      .plate-list-item {
+        padding: 10px 15px;
+        margin-bottom: 10px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        font-size: 1.1rem;
+      }
+
+      .plate-list-item:hover {
+        background-color: #e9ecef;
+      }
+
+      .plate-info {
+        font-weight: bold;
+        color: #333;
+      }
+
+      .plate-time {
+        font-size: 0.95rem;
+        color: #555;
+      }
+      .departure{
+        color: #dc3545; /* Red for departure times */
+
+      }
+      .parked-time {
+        color: #28a745; /* Green for 'Parked' status */
+        font-weight: bold;
+      }
+
+      .departure-time {
+        color: #dc3545; /* Red for departure times */
+      }
+
+      /* Sidebar Styling */
+      .sidebar {
+        max-height: 500px;
+        overflow-y: auto;
+        padding: 10px;
+      }
+
+      @media (max-width: 768px) {
         .video-feed {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
+          height: 300px;
         }
 
-        /* Vehicle List Styling */
-        .plate-list-item {
-            padding: 10px 15px;
-            margin-bottom: 10px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-            font-size: 1.1rem; /* Increased font size for better readability */
-        }
-
-        .plate-list-item:hover {
-            background-color: #e9ecef;
-        }
-
-        .plate-info {
-            font-weight: bold;
-            color: #333;
-        }
-
-        .plate-time {
-            font-size: 0.95rem;
-            color: #555;
-        }
-
-        .parked-time {
-            color: #28a745; /* Green for 'Parked' status */
-            font-weight: bold;
-        }
-
-        .departure-time {
-            color: #dc3545; /* Red for departure times */
-        }
-
-        /* Sidebar Styling */
         .sidebar {
-            max-height: 500px;
-            overflow-y: auto;
-            padding: 10px;
+          max-height: 300px;
         }
+      }
 
-        .alert {
-            display: none;
-        }
+      .head {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
 
-        @media (max-width: 768px) {
-            .video-feed {
-                height: 300px;
-            }
+      /* Centering and floating the success message */
+      #feedback-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        width: auto;
+        max-width: 90%;
+        padding: 15px;
+        font-size: 1.2rem;
+        text-align: center;
+        display: none;
+        border-radius: 10px;
+        background-color: #28a745; /* Green background for success */
+        color: white;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      
+      /* Styling for the Time In button */
+      .btn-light {
+        font-weight: bold;
+        padding: 10px 20px;
+        border-radius: 25px;
+        transition: background-color 0.3s ease;
+      }
 
-            .sidebar {
-                max-height: 300px;
-            }
-        }
+      .btn-light:hover {
+        background-color: #0056b3;
+        color: white;
+      }
     </style>
-</head>
-<body>
-
-    <!-- Header Section -->
-    <div class="header">
-        <div>ParkWatch: Time Out</div>
-    </div>
-
+  </head>
+  <body>
+    <div class="container-fluid bg-primary text-white p-3">
+      <div class="d-flex justify-content-between align-items-center">
+          <div class="h4 mb-0">ParkWatch: Time Out</div>
+      </div>
+  </div>
+  
     <div class="container">
-        <div class="row">
-            <!-- Video Feed Section -->
-            <div class="col-lg-8 col-md-12 mb-4">
-                <div class="card">
-                    <div class="card-header card-header-live">
-                        Live Parking Area Feed
-                    </div>
-                    <div class="card-body text-center">
-                        <img src="{{ url_for('video_feed') }}" class="video-feed" alt="Live Video Feed">
-                    </div>
-                </div>
+      <div class="row">
+        <!-- Video Feed Section -->
+        <div class="col-lg-8 col-md-12 mb-4">
+          <div class="card">
+            <div class="card-header card-header-live">
+              Live Parking Area Feed
             </div>
-
-            <!-- Detected Vehicles Section -->
-            <div class="col-lg-4 col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-detected">
-                        Detected Vehicles
-                    </div>
-                    <div class="card-body sidebar">
-                        <ul id="plates-list" class="list-unstyled">
-                            {% for plate in detected_plates %}
-                                <li class="plate-list-item">
-                                    <div class="plate-info">Vehicle: {{ plate['plate_number'] }}</div>
-                                    <div class="plate-time">Arrival: {{ plate['arrival_time'] }}</div>
-                                    <div class="plate-time">
-                                        Departure: 
-                                        {% if plate['departure_time'] == 'Parked' or plate['departure_time'] is none %}
-                                            <span class="parked-time">Still Parked</span>
-                                        {% else %}
-                                            <span class="departure-time">{{ plate['departure_time'] }}</span>
-                                        {% endif %}
-                                    </div>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
+            <div class="card-body text-center">
+              <img
+                src="{{ url_for('video_feed') }}"
+                class="video-feed"
+                alt="Live Video Feed"
+              />
             </div>
+          </div>
         </div>
+
+        <!-- Detected Vehicles Section -->
+        <div class="col-lg-4 col-md-12">
+          <div class="card">
+            <div class="card-header card-header-detected">
+              Detected Vehicles
+            </div>
+            <div class="card-body sidebar">
+              <ul id="plates-list" class="list-unstyled">
+                {% for plate in detected_plates %}
+                <li class="plate-list-item">
+                  <div class="plate-info">
+                    Vehicle: {{ plate['plate_number'] }}
+                  </div>
+                  <div class="plate-time">
+                    Arrival: {{ plate['arrival_time'] }}
+                  </div>
+                  <div class="plate-time">
+                    Departure: {% if plate['departure_time'] == 'Parked' or
+                    plate['departure_time'] is none %}
+                    <span class="parked-time">Still Parked</span>
+                    {% else %}
+                    <span class="departure-time"
+                      >{{ plate['departure_time'] }}</span
+                    >
+                    {% endif %}
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <script>
-        // Function to display a success message when a new vehicle is detected
-        function displaySuccessMessage() {
-            const successMessage = document.getElementById("success-message");
-            successMessage.style.display = "block"; // Show success message
-            setTimeout(() => {
-                successMessage.style.display = "none"; // Hide success message after 3 seconds
-            }, 3000);
+    <!-- Feedback Message -->
+    <div
+      id="feedback-message"
+      class="alert alert-success"
+      role="alert"
+      style="display: none"
+    >
+      Vehicle has left the parking area!
+    </div>
+
+<script>document.addEventListener("DOMContentLoaded", function () {
+    const platesList = document.getElementById("plates-list");
+  
+    // Set to track plate numbers that triggered the success message
+    const triggeredPlates = new Set();
+  
+    // Function to update plates list on the page
+    function updatePlates(data) {
+      platesList.innerHTML = ""; // Clear the current list
+      data.forEach((plate) => {
+        const li = document.createElement("li");
+        li.className = "plate-list-item";
+        li.innerHTML = `
+          <div class="plate-info">Vehicle: ${plate.plate_number}</div>
+          <div class="plate-time">Arrival: ${plate.arrival_time}</div>
+          <div class="plate-time departure">
+            Departure: ${plate.departure_time || 'Still Parked'}
+          </div>
+        `;
+        platesList.appendChild(li);
+  
+        // Trigger success message if vehicle leaves and has not triggered already
+        if (plate.departure_time && plate.departure_time !== 'Parked' && !triggeredPlates.has(plate.plate_number)) {
+          displaySuccessMessage(plate.plate_number);
+          triggeredPlates.add(plate.plate_number); // Mark this plate as triggered
         }
-
-        // Function to update the list of detected plates
-        function updatePlates(data) {
-            const platesList = document.getElementById("plates-list");
-            platesList.innerHTML = ""; // Clear existing list
-
-            // Loop through the plates and add them to the list
-            data.forEach(plate => {
-                const li = document.createElement("li");
-                li.classList.add("plate-list-item");
-
-                // Check if departure time is 'Parked' or null, and set as "Still Parked"
-                const departureTime = plate.departure_time === 'Parked' || plate.departure_time === null ? 
-                    `<span class="parked-time">Still Parked</span>` : 
-                    `<span class="departure-time">${plate.departure_time}</span>`;
-
-                li.innerHTML = `
-                    <div class="plate-info">Vehicle: ${plate.plate_number}</div>
-                    <div class="plate-time">Arrival: ${plate.arrival_time}</div>
-                    <div class="plate-time">Departure: ${departureTime}</div>
-                `;
-                platesList.appendChild(li);
-            });
-
-            displaySuccessMessage(); // Show success message for new data
-        }
-
-        // Listen to the SSE stream and update the page as new data arrives
-        const eventSource = new EventSource("/stream_plates");
-        eventSource.onmessage = function(event) {
-            const data = JSON.parse(event.data);
-            updatePlates(data);
-        };
-    </script>
-
-</body>
+      });
+    }
+  
+    const eventSource = new EventSource("/stream_plates");
+  
+    eventSource.onmessage = function(event) {
+      const plates = JSON.parse(event.data);
+      updatePlates(plates);
+    };
+  
+    eventSource.onerror = function(event) {
+      console.error("Error with SSE:", event);
+    };
+  });
+  
+  // Function to display a success message when a new vehicle leaves
+  function displaySuccessMessage(plateNumber) {
+    const successMessage = document.getElementById("feedback-message");
+    successMessage.textContent = `Vehicle ${plateNumber} has left the parking area!`;
+    successMessage.style.display = "block";
+    setTimeout(() => {
+      successMessage.style.display = "none";
+    }, 3000);
+  }
+  </script>
+  </body>
 </html>
