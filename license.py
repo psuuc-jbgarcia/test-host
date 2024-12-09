@@ -126,6 +126,7 @@ camera_url = get_camera_url("time_in")
 cap = cv2.VideoCapture(camera_url, cv2.CAP_FFMPEG)
 # cap = cv2.VideoCapture(0)
 
+
 frame_count = 0
 stable_plate = None
 stable_count = 0
